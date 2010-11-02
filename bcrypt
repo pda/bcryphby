@@ -2,8 +2,11 @@
 
 require 'bcrypt'
 
-command = ARGV[0]
+command = ARGV[0].to_sym
 
-if command == 'hash'
-  puts BCrypt::Password.create(ARGV[1]).to_str
+case command
+  when :hash
+    puts BCrypt::Password.create(ARGV[1]).to_str
+  when :compare
+  	puts (BCrypt::Password.new(ARGV[1]) == ARGV[2]).to_s
 end

@@ -1,21 +1,33 @@
 describe 'bcrypt' do
 
+  def hash(secret)
+    `./bcrypt hash '#{secret}'`.chomp
+  end
+
+  def compare(hash, secret)
+    `./bcrypt compare '#{hash}' '#{secret}'`.chomp
+  end
+
   describe 'hash' do
 
-    def hash_blarg
-      `./bcrypt hash blarg`
-    end
-
     it 'returns a string' do
-      hash_blarg.class.should == String
+      hash('blarg').class.should == String
     end
 
     it 'returns a string with valid prefix' do
-      hash_blarg[0..6].should == '$2a$10$'
+      hash('blarg')[0..6].should == '$2a$10$'
     end
 
-    it 'returns a string ending in a unix newline' do
-      hash_blarg[-1].should == "\n"
+  end
+
+  describe 'compare' do
+
+    it 'passes on round-trip comparison' do
+      compare(hash('blarg'), 'blarg').should == 'true'
+    end
+
+    it 'fails on random comparison' do
+      compare(hash('blarg'), 'meh').should == 'false'
     end
 
   end
