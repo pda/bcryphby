@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'bcrypt'
+
+command = ARGV[0]
+
+if command == 'hash'
+  puts BCrypt::Password.create(ARGV[1]).to_str
+end
