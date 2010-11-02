@@ -1,0 +1,9 @@
+GEM
+  specs:
+    bcrypt-ruby (2.1.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bcrypt-ruby
