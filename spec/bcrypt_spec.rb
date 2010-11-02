@@ -1,25 +1,21 @@
+require 'spec_helper.rb'
+
 describe 'bcryphtuby CLI interface to bcrypt-ruby' do
 
-  def hash(secret)
-    `./bcrypt hash '#{secret}'`.chomp
-  end
-
-  def compare(hash, secret)
-    `./bcrypt compare '#{hash}' '#{secret}'`.chomp
-  end
+  cli = CliRunner.new(:ruby)
 
   describe 'the hash command' do
 
     it 'outputs a string' do
-      hash('blarg').class.should == String
+      cli.hash('blarg').class.should == String
     end
 
     it 'outputs a string with valid prefix' do
-      hash('blarg')[0..6].should == '$2a$10$'
+      cli.hash('blarg')[0..6].should == '$2a$10$'
     end
 
     it 'outputs a string of the correct length' do
-      hash('blarg').length == 60
+      cli.hash('blarg').length == 60
     end
 
   end
@@ -27,11 +23,11 @@ describe 'bcryphtuby CLI interface to bcrypt-ruby' do
   describe 'the compare command' do
 
     it 'outputs true for valid comparison' do
-      compare(hash('blarg'), 'blarg').should == 'true'
+      cli.compare(cli.hash('blarg'), 'blarg').should == 'true'
     end
 
     it 'outputs false for invalid comparison' do
-      compare(hash('blarg'), 'meh').should == 'false'
+      cli.compare(cli.hash('blarg'), 'meh').should == 'false'
     end
 
   end
