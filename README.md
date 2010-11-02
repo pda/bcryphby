@@ -1,10 +1,10 @@
-bcryphtuby
-==========
+bcryphby
+========
 
 A thin CLI wrapper around bcrypt-ruby, and then a thin PHP wrapper around that.
 
     # procure
-    git clone git://github.com/pda/bcryphtuby.git
+    git clone git://github.com/pda/bcryphby.git
     bundle install  # bcrypt-ruby, rspec
     rake spec
 
