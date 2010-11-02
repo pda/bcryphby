@@ -1,33 +1,37 @@
 require 'spec_helper.rb'
 
-describe 'bcryphtuby CLI interface to bcrypt-ruby' do
+[:ruby, :php].each do |type|
 
-  cli = CliRunner.new(:ruby)
+  describe "#{type} CLI interface to bcrypt-ruby" do
 
-  describe 'the hash command' do
+    cli = CliRunner.new(type)
 
-    it 'outputs a string' do
-      cli.hash('blarg').class.should == String
+    describe 'the hash command' do
+
+      it 'outputs a string' do
+        cli.hash('blarg').class.should == String
+      end
+
+      it 'outputs a string with valid prefix' do
+        cli.hash('blarg')[0..6].should == '$2a$10$'
+      end
+
+      it 'outputs a string of the correct length' do
+        cli.hash('blarg').length.should == 60
+      end
+
     end
 
-    it 'outputs a string with valid prefix' do
-      cli.hash('blarg')[0..6].should == '$2a$10$'
-    end
+    describe 'the compare command' do
 
-    it 'outputs a string of the correct length' do
-      cli.hash('blarg').length == 60
-    end
+      it 'outputs true for valid comparison' do
+        cli.compare(cli.hash('blarg'), 'blarg').should == 'true'
+      end
 
-  end
+      it 'outputs false for invalid comparison' do
+        cli.compare(cli.hash('blarg'), 'meh').should == 'false'
+      end
 
-  describe 'the compare command' do
-
-    it 'outputs true for valid comparison' do
-      cli.compare(cli.hash('blarg'), 'blarg').should == 'true'
-    end
-
-    it 'outputs false for invalid comparison' do
-      cli.compare(cli.hash('blarg'), 'meh').should == 'false'
     end
 
   end

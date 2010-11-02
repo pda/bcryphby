@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+// PHP CLI wrapper around CLI wrapper around Ruby CLI wrapper around bcrypt-ruby.
+// Exists to get RSpec coverage across the PHP side of things.
+
+require_once('./bcrypt.php');
+
+switch (isset($argv[1]) ? $argv[1] : null)
+{
+case 'hash':
+	printf("%s\n", Bcrypt::hash($argv[2]));
+	exit(0);
+
+case 'compare':
+	$result = Bcrypt::compare($argv[2], $argv[3]);
+	printf("%s\n", $result ? 'true' : 'false');
+	exit(0);
+
+default:
+	printf("Usage:\n");
+	printf("  {$argv[0]} hash <secret>\n");
+	printf("  {$argv[0]} compare <hash> <secret>\n");
+	exit(1);
+}

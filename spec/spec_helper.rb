@@ -8,13 +8,17 @@ class CliRunner
 
   def hash(secret)
     if @mode == :ruby
-      `./bcrypt hash '#{secret}'`.chomp
+      `./bcrypt-cli hash '#{secret}'`.chomp
+    elsif @mode == :php
+      `./bcrypt-cli-php hash '#{secret}'`.chomp
     end
   end
 
   def compare(hash, secret)
     if @mode == :ruby
-      `./bcrypt compare '#{hash}' '#{secret}'`.chomp
+      `./bcrypt-cli compare '#{hash}' '#{secret}'`.chomp
+    elsif @mode == :php
+      `./bcrypt-cli-php compare '#{hash}' '#{secret}'`.chomp
     end
   end
 

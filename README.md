@@ -4,18 +4,21 @@ bcryphtuby
 A thin CLI wrapper around bcrypt-ruby, and then a thin PHP wrapper around that.
 
     # procure
-    git checkout <repo>
+    git clone git://github.com/pda/bcryphtuby.git
     bundle install  # bcrypt-ruby, rspec
     rake spec
 
     # wield
-    ./bcrypt hash blarg  # $2a$10$w8Y4...
-    ./bcrypt compare '$2a$10$w8Y4...' blarg  # true
-    ./bcrypt compare '$2a$10$w8Y4...' meh  # false
+    ./bcrypt-cli hash blarg                      # $2a$10$w8Y4...
+    ./bcrypt-cli compare '$2a$10$w8Y4...' blarg  # true
+    ./bcrypt-cli compare '$2a$10$w8Y4...' meh    # false
 
     # mash into PHP
-    // TODO
-
+    require_once('bcrypt.php');
+    $hash = Bcrypt::hash('test');    // string(60) "$2a$10$HdyP..."
+    Bcrypt::compare($hash, 'wrong'); // bool(false)
+    Bcrypt::compare($hash, 'test');  // bool(true)
+	
 
 Good god, why??
 ---------------
@@ -41,9 +44,7 @@ The medium answer is that it doesn't support it in my transitional production en
 How's it looking?
 -----------------
 
-The Ruby side of things speaks for itself.
-
-    bcryphtuby CLI interface to bcrypt-ruby
+    ruby CLI interface to bcrypt-ruby
       the hash command
         outputs a string
         outputs a string with valid prefix
@@ -52,12 +53,17 @@ The Ruby side of things speaks for itself.
         outputs true for valid comparison
         outputs false for invalid comparison
     
-    Finished in 2.95 seconds
-    5 examples, 0 failures
-
-The PHP wrapper:
-
-    // TODO
+    php CLI interface to bcrypt-ruby
+      the hash command
+        outputs a string
+        outputs a string with valid prefix
+        outputs a string of the correct length
+      the compare command
+        outputs true for valid comparison
+        outputs false for invalid comparison
+    
+    Finished in 6.23 seconds
+    10 examples, 0 failures
 
 
 Meh.
