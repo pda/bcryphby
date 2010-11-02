@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require 'bcrypt'
 
 command = ARGV[0].to_sym

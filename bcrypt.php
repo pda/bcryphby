@@ -14,13 +14,17 @@ class Bcrypt
 
 	private static function run()
 	{
-		$command_parts = array(
-			escapeshellcmd(realpath(dirname(__FILE__)) . '/bcrypt-cli')
-		);
+		$args = func_get_args();
+		array_unshift($args, escapeshellcmd(realpath(dirname(__FILE__)) . '/bcrypt-cli'));
 
-		foreach (func_get_args() as $arg)
-			$command_parts []= escapeshellarg($arg);
+		return exec(sprintf(
+			'ruby -rubygems %s',
+			implode(' ', array_map(array(__CLASS__, 'map_escapeshellarg'), $args))
+		));
+	}
 
-		return exec(implode(' ', $command_parts));
+	private static function map_escapeshellarg($arg)
+	{
+		return escapeshellarg($arg);
 	}
 }

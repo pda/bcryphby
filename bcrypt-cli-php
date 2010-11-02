@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 
 // PHP CLI wrapper around CLI wrapper around Ruby CLI wrapper around bcrypt-ruby.

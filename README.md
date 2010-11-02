@@ -9,16 +9,17 @@ A thin CLI wrapper around bcrypt-ruby, and then a thin PHP wrapper around that.
     rake spec
 
     # wield
-    ./bcrypt-cli hash blarg                      # $2a$10$w8Y4...
-    ./bcrypt-cli compare '$2a$10$w8Y4...' blarg  # true
-    ./bcrypt-cli compare '$2a$10$w8Y4...' meh    # false
+    ruby bcrypt-cli hash blarg                      # $2a$10$w8Y4...
+    ruby bcrypt-cli compare '$2a$10$w8Y4...' blarg  # true
+    ruby bcrypt-cli compare '$2a$10$w8Y4...' meh    # false
 
     # mash into PHP
     require_once('bcrypt.php');
     $hash = Bcrypt::hash('test');    // string(60) "$2a$10$HdyP..."
     Bcrypt::compare($hash, 'wrong'); // bool(false)
     Bcrypt::compare($hash, 'test');  // bool(true)
-	
+
+(You might need -rubygems on those ruby commands...)
 
 Good god, why??
 ---------------
